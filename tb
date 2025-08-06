@@ -1,0 +1,19 @@
+`timescale 1ns/1ps
+module tb_edge_detector;
+    reg clk, signal;
+    wire rising, falling;
+
+    edge_detector uut(clk, signal, rising, falling);
+
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("edge.vcd"); $dumpvars(0, tb_edge_detector);
+        clk = 0; signal = 0;
+        #10 signal = 1;
+        #10 signal = 0;
+        #10 signal = 1;
+        #10;
+        $finish;
+    end
+endmodule
